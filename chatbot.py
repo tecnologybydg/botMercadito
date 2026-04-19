@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify
 import requests
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
-ACCESS_TOKEN    = "EAALjhsvYiCgBRI59ZAPZAGILd8HQ1Ifwhkr986QeA6edHMZBzEkpqbHnZC9QlBfAd5KguOddZBE6uZAqqZCcBEuaDQ57ZCi4Bb18QoIe2FwmTo6t3E6ZBXTKoy4kqSsREpSRwAFvKA86DTKGKyfSPd6E3p93S4nLmFQYDmUcWavXfuEYC6pjJoG1OyQZAKaZAGiBD6MnN3leywxWIK8ny1IKZAqYPmZCojBRpshWyUFGHDwyj58j4J94sucyZBMNZBYFgP9XIYyolWqzXAh1NKIAWv8ZB4XZB"
-PHONE_NUMBER_ID = "1039267642609832"
-API_VERSION     = "v19.0"
-VERIFY_TOKEN    = "abc12345"
+ACCESS_TOKEN    = os.environ.get("ACCESS_TOKEN")
+PHONE_NUMBER_ID = os.environ.get("PHONE_NUMBER_ID")
+VERIFY_TOKEN    = os.environ.get("VERIFY_TOKEN")
 
 # ── Números de proveedor por tienda ──────────────────────────
 PROVEEDORES = {
@@ -407,4 +407,5 @@ def receive_message():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
